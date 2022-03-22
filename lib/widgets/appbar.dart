@@ -14,7 +14,7 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Padding(
-      padding: EdgeInsets.only(top: size.height * 15 / 330),
+      padding: EdgeInsets.only(top: size.height * 10 / 330),
       child: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
