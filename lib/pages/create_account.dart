@@ -1,4 +1,8 @@
+import 'dart:ui';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:qlorian_app/country.dart';
 
 import '../methods.dart';
 import '../widgets/appbar.dart';
@@ -15,14 +19,11 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
-    final controllerName = TextEditingController();
-    final controllerCPF = TextEditingController();
-    final controllerRG = TextEditingController();
-    final controllerphone = TextEditingController();
-
-    final menuItems = ['Brazil', 'Argentina', 'Portugal', 'United States'];
-
     final size = MediaQuery.of(context).size;
+
+    List<Map> _countries = [
+      {'id': 1, 'name': 'Brazil', 'image': 'assets/images/brasil.png'},
+    ];
 
     return Scaffold(
       appBar: const PreferredSize(
@@ -46,8 +47,9 @@ class _CreateAccountState extends State<CreateAccount> {
                       child: Container(
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage('assets/images/smile.png')),
+                            fit: BoxFit.fill,
+                            image: AssetImage('assets/images/smile.png'),
+                          ),
                         ),
                       ),
                     ),
@@ -174,7 +176,6 @@ class _CreateAccountState extends State<CreateAccount> {
                       child: Form(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: TextFormField(
-                          controller: controllerName,
                           validator: (value) => Methods().validateName(value),
                           decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
@@ -222,7 +223,6 @@ class _CreateAccountState extends State<CreateAccount> {
                       child: Form(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: TextFormField(
-                          controller: controllerCPF,
                           keyboardType: TextInputType.number,
                           validator: (value) => Methods().validateCPF(value),
                           decoration: InputDecoration(
@@ -271,7 +271,6 @@ class _CreateAccountState extends State<CreateAccount> {
                       child: Form(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: TextFormField(
-                          controller: controllerRG,
                           keyboardType: TextInputType.number,
                           validator: (value) => Methods().validateRG(value),
                           decoration: InputDecoration(
@@ -320,7 +319,6 @@ class _CreateAccountState extends State<CreateAccount> {
                       child: Form(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: TextFormField(
-                          controller: controllerphone,
                           keyboardType: TextInputType.number,
                           validator: (value) => Methods().validatePhone(value),
                           decoration: InputDecoration(
@@ -385,8 +383,10 @@ class _CreateAccountState extends State<CreateAccount> {
                                   DropdownButton<String>(
                                     isExpanded: true,
                                     value: value,
-                                    items:
-                                        menuItems.map(buildMenuItem).toList(),
+                                    items: Item.countryList()
+                                        .map((e) =>
+                                            buildMenuItem(e.name, e.image))
+                                        .toList(),
                                     onChanged: (value) =>
                                         setState(() => this.value = value),
                                   ),
@@ -441,15 +441,29 @@ class _CreateAccountState extends State<CreateAccount> {
     );
   }
 
-  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+  DropdownMenuItem<String> buildMenuItem(String item, String path) =>
+      DropdownMenuItem(
         value: item,
-        child: Text(
-          item,
-          style: const TextStyle(
-            fontSize: 380 * 50 / 1440,
-            color: Color(0xff9E9E9E),
-            fontWeight: FontWeight.bold,
-          ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(30.0),
+              child: Image.asset(
+                path,
+                height: 30,
+                width: 30,
+              ),
+            ),
+            const SizedBox(width: 5),
+            Text(
+              item,
+              style: const TextStyle(
+                fontSize: 380 * 50 / 1440,
+                color: Color(0xff9E9E9E),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       );
 }
