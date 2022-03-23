@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qlorian_app/country.dart';
 
-import '../methods.dart';
+import '../classes/methods.dart';
 import '../widgets/appbar.dart';
 
 class CreateAccount extends StatefulWidget {

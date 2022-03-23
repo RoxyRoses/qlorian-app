@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qlorian_app/pages/create_account.dart';
 import 'package:qlorian_app/widgets/appbar.dart';
 
-import '../methods.dart';
+import '../classes/methods.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
