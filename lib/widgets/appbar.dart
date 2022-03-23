@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget {
   final height;
   final width;
+  final Function()? navigator;
 
   const CustomAppBar({
     Key? key,
     this.height = 330,
     this.width = 1440,
+    this.navigator,
   }) : super(key: key);
 
   @override
@@ -20,7 +22,9 @@ class CustomAppBar extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.maybePop(context);
+          },
         ),
       ),
     );

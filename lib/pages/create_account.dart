@@ -1,35 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:qlorian_app/pages/create_account.dart';
-import 'package:qlorian_app/widgets/appbar.dart';
 
 import '../methods.dart';
+import '../widgets/appbar.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class CreateAccount extends StatefulWidget {
+  const CreateAccount({Key? key}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<CreateAccount> createState() => _CreateAccountState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
-  final controllerConfirmPassword = TextEditingController();
-  final controllerName = TextEditingController();
-  final controllerEmail = TextEditingController();
-  final controllerPassword = TextEditingController();
-
-  @override
-  void dispose() {
-    controllerConfirmPassword.dispose();
-    controllerName.dispose();
-    controllerEmail.dispose();
-    controllerPassword.dispose();
-    super.dispose();
-  }
+class _CreateAccountState extends State<CreateAccount> {
+  String? value;
 
   @override
   Widget build(BuildContext context) {
+    final controllerName = TextEditingController();
+    final controllerCPF = TextEditingController();
+    final controllerRG = TextEditingController();
+    final controllerphone = TextEditingController();
+
+    final menuItems = ['Brazil', 'Argentina', 'Portugal', 'United States'];
+
     final size = MediaQuery.of(context).size;
-    IconData lockOutline = const IconData(0xe3b1, fontFamily: 'MaterialIcons');
 
     return Scaffold(
       appBar: const PreferredSize(
@@ -54,32 +47,34 @@ class _SignUpPageState extends State<SignUpPage> {
                         decoration: const BoxDecoration(
                           image: DecorationImage(
                               fit: BoxFit.fill,
-                              image: AssetImage('assets/images/waving.png')),
+                              image: AssetImage('assets/images/smile.png')),
                         ),
                       ),
                     ),
                   ),
                   const SizedBox(width: 5),
                   Text(
-                    'Hello,',
+                    'Setting up your',
                     style: TextStyle(
                         fontSize: size.height * 18 / size.height,
                         fontWeight: FontWeight.bold),
-                  )
+                  ),
                 ],
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(
+              height: 5,
+            ),
             Padding(
               padding: EdgeInsets.only(left: size.width * 15 / size.width),
               child: Row(
                 children: [
                   Text(
-                    'Are you new Here?',
+                    'profile',
                     style: TextStyle(
                         fontSize: size.height * 18 / size.height,
                         fontWeight: FontWeight.bold),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -89,23 +84,12 @@ class _SignUpPageState extends State<SignUpPage> {
               child: Row(
                 children: [
                   Text(
-                    'If you have an account / ',
+                    'Add your profile photo',
                     style: TextStyle(
-                        fontSize: size.height * 15 / size.height,
-                        color: const Color(0xff9E9E9E)),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      debugPrint('login');
-                    },
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                          fontSize: size.height * 15 / size.height,
-                          color: const Color(0xff9E9E9E),
-                          fontWeight: FontWeight.bold),
+                      fontSize: size.height * 15 / size.height,
+                      color: const Color(0xff9E9E9E),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -113,7 +97,7 @@ class _SignUpPageState extends State<SignUpPage> {
               height: 20,
             ),
             Container(
-              height: size.height * 670 / size.height,
+              height: size.height * 950 / size.height,
               width: size.width * 1440 / size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(200 * 30 / 200),
@@ -121,9 +105,48 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               child: SingleChildScrollView(
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.only(top: size.height * 35 / size.height),
+                      child: SizedBox(
+                        height: size.height * 120 / size.height,
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: Stack(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.circular(200 * 30 / 200),
+                                  image: const DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image:
+                                        AssetImage('assets/images/picture.jpg'),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: size.height * 75 / size.height,
+                                    left: size.height * 75 / size.height),
+                                child: CircleAvatar(
+                                  radius: 20,
+                                  backgroundColor: const Color(0xff918AE2),
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.camera_alt,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {},
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -133,7 +156,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Row(
                         children: [
                           Text(
-                            'Full Name',
+                            'Display Name',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: size.width * 50 / 1440),
@@ -155,10 +178,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           validator: (value) => Methods().validateName(value),
                           decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  borderSide: const BorderSide(
-                                    color: Color(0xff918AE2),
-                                  )),
+                                borderRadius: BorderRadius.circular(15.0),
+                                borderSide: const BorderSide(
+                                  color: Color(0xff918AE2),
+                                ),
+                              ),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15.0),
                                   borderSide: const BorderSide(
@@ -171,14 +195,16 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     Padding(
                       padding:
                           EdgeInsets.only(left: size.width * 25 / size.width),
                       child: Row(
                         children: [
                           Text(
-                            'E-mail',
+                            'CPF',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: size.width * 50 / 1440),
@@ -196,34 +222,38 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Form(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: TextFormField(
-                          controller: controllerEmail,
-                          validator: (value) => Methods().validateEmail(value),
+                          controller: controllerCPF,
+                          keyboardType: TextInputType.number,
+                          validator: (value) => Methods().validateCPF(value),
                           decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  borderSide: const BorderSide(
-                                    color: Color(0xff918AE2),
-                                  )),
+                                borderRadius: BorderRadius.circular(15.0),
+                                borderSide: const BorderSide(
+                                  color: Color(0xff918AE2),
+                                ),
+                              ),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15.0),
                                   borderSide: const BorderSide(
                                     color: Color(0xff918AE2),
                                   )),
                               prefixIcon: const Icon(
-                                Icons.email_outlined,
+                                Icons.domain_verification,
                                 color: Color(0xff918AE2),
                               )),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     Padding(
                       padding:
                           EdgeInsets.only(left: size.width * 25 / size.width),
                       child: Row(
                         children: [
                           Text(
-                            'Password',
+                            'RG',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: size.width * 50 / 1440),
@@ -241,36 +271,38 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Form(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: TextFormField(
-                          controller: controllerPassword,
-                          validator: (value) =>
-                              Methods().validatePassword(value),
-                          obscureText: true,
+                          controller: controllerRG,
+                          keyboardType: TextInputType.number,
+                          validator: (value) => Methods().validateRG(value),
                           decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  borderSide: const BorderSide(
-                                    color: Color(0xff918AE2),
-                                  )),
+                                borderRadius: BorderRadius.circular(15.0),
+                                borderSide: const BorderSide(
+                                  color: Color(0xff918AE2),
+                                ),
+                              ),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15.0),
                                   borderSide: const BorderSide(
                                     color: Color(0xff918AE2),
                                   )),
-                              prefixIcon: Icon(
-                                lockOutline,
-                                color: const Color(0xff918AE2),
+                              prefixIcon: const Icon(
+                                Icons.domain_verification,
+                                color: Color(0xff918AE2),
                               )),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     Padding(
                       padding:
                           EdgeInsets.only(left: size.width * 25 / size.width),
                       child: Row(
                         children: [
                           Text(
-                            'Confirm Password',
+                            'Phone',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: size.width * 50 / 1440),
@@ -288,24 +320,78 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Form(
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: TextFormField(
-                          controller: controllerConfirmPassword,
-                          validator: (value) => Methods()
-                              .confirmPassword(controllerPassword.text, value),
-                          obscureText: true,
+                          controller: controllerphone,
+                          keyboardType: TextInputType.number,
+                          validator: (value) => Methods().validatePhone(value),
                           decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
+                              enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15.0),
                                 borderSide: const BorderSide(
                                   color: Color(0xff918AE2),
-                                )),
-                            focusedBorder: OutlineInputBorder(
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  borderSide: const BorderSide(
+                                    color: Color(0xff918AE2),
+                                  )),
+                              prefixIcon: const Icon(
+                                Icons.local_phone,
+                                color: Color(0xff918AE2),
+                              )),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.only(left: size.width * 25 / size.width),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Country',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: size.width * 50 / 1440),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: size.width * 25 / size.width,
+                          right: size.width * 25 / size.width),
+                      child: Form(
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        child: SizedBox(
+                          height: size.height * 55 / size.height,
+                          child: InputDecorator(
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15.0),
                                 borderSide: const BorderSide(
                                   color: Color(0xff918AE2),
-                                )),
-                            prefixIcon: Icon(
-                              lockOutline,
-                              color: const Color(0xff918AE2),
+                                ),
+                              ),
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: Stack(
+                                children: [
+                                  DropdownButton<String>(
+                                    isExpanded: true,
+                                    value: value,
+                                    items:
+                                        menuItems.map(buildMenuItem).toList(),
+                                    onChanged: (value) =>
+                                        setState(() => this.value = value),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -337,21 +423,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                                 color: Color(0xff918AE2))))
                                     // foreground
                                     ),
-                                onPressed: () {
-                                  if (controllerConfirmPassword
-                                          .value.text.isNotEmpty ||
-                                      controllerPassword
-                                          .value.text.isNotEmpty ||
-                                      controllerName.value.text.isNotEmpty ||
-                                      controllerEmail.value.text.isNotEmpty) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CreateAccount()));
-                                  }
-                                },
-                                child: const Text('Sign Up'),
+                                onPressed: () {},
+                                child: const Text('Confirm'),
                               ),
                             ),
                           ),
@@ -361,10 +434,22 @@ class _SignUpPageState extends State<SignUpPage> {
                   ],
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),
     );
   }
+
+  DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
+        value: item,
+        child: Text(
+          item,
+          style: const TextStyle(
+            fontSize: 380 * 50 / 1440,
+            color: Color(0xff9E9E9E),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
 }
