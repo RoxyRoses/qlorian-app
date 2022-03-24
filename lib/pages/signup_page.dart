@@ -13,15 +13,12 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final controllerConfirmPassword = TextEditingController();
-  final controllerName = TextEditingController();
-  final controllerEmail = TextEditingController();
   final controllerPassword = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     controllerConfirmPassword.dispose();
-    controllerName.dispose();
-    controllerEmail.dispose();
     controllerPassword.dispose();
     super.dispose();
   }
@@ -120,38 +117,37 @@ class _SignUpPageState extends State<SignUpPage> {
                 color: Colors.white,
               ),
               child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: size.width * 25 / size.width),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Full Name',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: size.width * 50 / 1440),
-                          ),
-                        ],
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 30,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 25 / size.width,
-                          right: size.width * 25 / size.width),
-                      child: Form(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: size.width * 25 / size.width),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Full Name',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.width * 50 / 1440),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: size.width * 25 / size.width,
+                            right: size.width * 25 / size.width),
                         child: TextFormField(
-                          controller: controllerName,
                           validator: (value) => Methods().validateName(value),
                           decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
@@ -170,33 +166,29 @@ class _SignUpPageState extends State<SignUpPage> {
                               )),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 30),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: size.width * 25 / size.width),
-                      child: Row(
-                        children: [
-                          Text(
-                            'E-mail',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: size.width * 50 / 1440),
-                          ),
-                        ],
+                      const SizedBox(height: 30),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: size.width * 25 / size.width),
+                        child: Row(
+                          children: [
+                            Text(
+                              'E-mail',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.width * 50 / 1440),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 25 / size.width,
-                          right: size.width * 25 / size.width),
-                      child: Form(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: size.width * 25 / size.width,
+                            right: size.width * 25 / size.width),
                         child: TextFormField(
-                          controller: controllerEmail,
                           validator: (value) => Methods().validateEmail(value),
                           decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
@@ -215,31 +207,28 @@ class _SignUpPageState extends State<SignUpPage> {
                               )),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 30),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: size.width * 25 / size.width),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Password',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: size.width * 50 / 1440),
-                          ),
-                        ],
+                      const SizedBox(height: 30),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: size.width * 25 / size.width),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Password',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.width * 50 / 1440),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 25 / size.width,
-                          right: size.width * 25 / size.width),
-                      child: Form(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: size.width * 25 / size.width,
+                            right: size.width * 25 / size.width),
                         child: TextFormField(
                           controller: controllerPassword,
                           validator: (value) =>
@@ -262,31 +251,28 @@ class _SignUpPageState extends State<SignUpPage> {
                               )),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 30),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: size.width * 25 / size.width),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Confirm Password',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: size.width * 50 / 1440),
-                          ),
-                        ],
+                      const SizedBox(height: 30),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: size.width * 25 / size.width),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Confirm Password',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size.width * 50 / 1440),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 25 / size.width,
-                          right: size.width * 25 / size.width),
-                      child: Form(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: size.width * 25 / size.width,
+                            right: size.width * 25 / size.width),
                         child: TextFormField(
                           controller: controllerConfirmPassword,
                           validator: (value) => Methods()
@@ -310,55 +296,50 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 55,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: size.width * 25 / size.width,
-                          right: size.width * 25 / size.width),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                              height: size.height * 40 / size.height,
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            const Color(0xff918AE2)),
-                                    shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            side: const BorderSide(
-                                                color: Color(0xff918AE2))))
-                                    // foreground
-                                    ),
-                                onPressed: () {
-                                  if (controllerConfirmPassword
-                                          .value.text.isNotEmpty ||
-                                      controllerPassword
-                                          .value.text.isNotEmpty ||
-                                      controllerName.value.text.isNotEmpty ||
-                                      controllerEmail.value.text.isNotEmpty) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CreateAccount()));
-                                  }
-                                },
-                                child: const Text('Sign Up'),
+                      const SizedBox(
+                        height: 55,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: size.width * 25 / size.width,
+                            right: size.width * 25 / size.width),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                height: size.height * 40 / size.height,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              const Color(0xff918AE2)),
+                                      shape: MaterialStateProperty.all<
+                                              RoundedRectangleBorder>(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              side: const BorderSide(
+                                                  color: Color(0xff918AE2))))
+                                      // foreground
+                                      ),
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const CreateAccount()));
+                                    }
+                                  },
+                                  child: const Text('Sign Up'),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

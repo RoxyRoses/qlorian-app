@@ -39,7 +39,7 @@ class Methods {
   }
 
   String? validatePhone(String? value) {
-    String pattern = r'^(^[0-9]{2})?(\s|-)?(9?[0-9]{4})-?([0-9]{4}$)';
+    String pattern = r'^(^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$)';
     RegExp regex = RegExp(pattern);
     if (value == null || value.isEmpty || !regex.hasMatch(value)) {
       return 'Enter a valid phone';
